@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fe48c31f7043549b8f9fd42686be32, type: 3}
+  m_Name: Tutorial
+  m_EditorClassIdentifier: 
+  _levels:
+  - {fileID: 11400000, guid: dc646811bb788174084c4a023d3dab36, type: 2}
+  - {fileID: 11400000, guid: 33e397e15cc49354ebbad87caa66592f, type: 2}
+  - {fileID: 11400000, guid: 66822d2723484564b8e609fc0496b64f, type: 2}
+  _sceneReferences:
+  - _level: {fileID: 11400000, guid: dc646811bb788174084c4a023d3dab36, type: 2}
+    _sceneName: tutorial_00
+    _displayName: 
+    _previewImage: {fileID: 0}
+    _metadata:
+      _description: 
+      _difficulty: 1
+  - _level: {fileID: 11400000, guid: 33e397e15cc49354ebbad87caa66592f, type: 2}
+    _sceneName: tutorial_01
+    _displayName: 
+    _previewImage: {fileID: 0}
+    _metadata:
+      _description: 
+      _difficulty: 1
+  - _level: {fileID: 11400000, guid: 66822d2723484564b8e609fc0496b64f, type: 2}
+    _sceneName: tutorial_02
+    _displayName: 
+    _previewImage: {fileID: 0}
+    _metadata:
+      _description: 
+      _difficulty: 1
+  _loopSequence: 0

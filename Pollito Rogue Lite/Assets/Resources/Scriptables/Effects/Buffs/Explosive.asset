@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ffe09a73804e988fd61d85b1765ae0, type: 3}
+  m_Name: Explosive
+  m_EditorClassIdentifier: 
+  effectName: Explosive
+  description: Put Explosive Eggs
+  duration: -1
+  icon: {fileID: 954633069331833481, guid: fcf464d6025b199438568a33efdc589f, type: 3}
+  developmentOnly: 0
+  enabled: 1
+  _type: 4
+  _color: {r: 0, g: 0, b: 0, a: 0}
+  _defaultHeadSprite: {fileID: 954633069331833481, guid: fcf464d6025b199438568a33efdc589f, type: 3}
+  _defaultBodySprite: {fileID: -5848069215874419645, guid: fcf464d6025b199438568a33efdc589f, type: 3}
+  _defaultBackFeetSprite: {fileID: 8087028321130519783, guid: fd9f13c68d991f1429168f79bf4cb104, type: 3}
+  _defaultFrontFeetSprite: {fileID: 7358530410388744773, guid: 47bbbdc40968aeb4e88586a8427ab631, type: 3}
+  _specialSprites:
+  - displayName: 'Head: Inverted'
+    sprite: {fileID: -5077607328658794341, guid: fcf464d6025b199438568a33efdc589f, type: 3}
+    bodyPart: 0
+    requirements:
+    - type: 1
+      required: 1
+  - displayName: 'Head: Blindness'
+    sprite: {fileID: 7003816302572963205, guid: fcf464d6025b199438568a33efdc589f, type: 3}
+    bodyPart: 0
+    requirements:
+    - type: 2
+      required: 1
+  - displayName: 'Head: Inverted + Blindness'
+    sprite: {fileID: -3214831454013420945, guid: fcf464d6025b199438568a33efdc589f, type: 3}
+    bodyPart: 0
+    requirements:
+    - type: 1
+      required: 1
+    - type: 2
+      required: 1

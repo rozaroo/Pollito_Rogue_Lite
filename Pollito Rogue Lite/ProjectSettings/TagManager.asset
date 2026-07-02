@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Obstacle
+  - Static
+  - Wall
+  - Trap
+  - Objective
+  - Walkable
+  - Jumpable
+  - Bomb
+  - Explosive
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Player
+  - Water
+  - UI
+  - Objective
+  - Obstacle
+  - Static
+  - Background
+  - Foreground
+  - Trap
+  - Walkable
+  - Wall
+  - Jumpable
+  - WaterHole
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 75031411
+    locked: 0
+  - name: Foreground
+    uniqueID: 4134576111
+    locked: 0
+  - name: Walkable
+    uniqueID: 2085706697
+    locked: 0
+  - name: Wall Opaque
+    uniqueID: 3860934853
+    locked: 0
+  - name: Statics
+    uniqueID: 3054082059
+    locked: 0
+  - name: Trap
+    uniqueID: 1932080865
+    locked: 0
+  - name: Jumpable
+    uniqueID: 1155690507
+    locked: 0
+  - name: Objective
+    uniqueID: 622844065
+    locked: 0
+  - name: Wall Transparent
+    uniqueID: 648586087
+    locked: 0
+  - name: Obstacles Transparent
+    uniqueID: 180148329
+    locked: 0
+  - name: Obstacles Opaque
+    uniqueID: 4127867575
+    locked: 0
+  - name: HubUI
+    uniqueID: 2884491853
+    locked: 0
+  - name: Player
+    uniqueID: 3271635239
+    locked: 0
+  - name: UI
+    uniqueID: 278483235
+    locked: 0
+  - name: Pickables
+    uniqueID: 4058446413
+    locked: 0

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da279c0aa7e427ea768d419f870ca3b, type: 3}
+  m_Name: Dash
+  m_EditorClassIdentifier: 
+  _unlockedByDefault: 1
+  _abilityName: Dash
+  _abilityDescription: Dash
+  _abilityIcon: {fileID: -2819336627305002838, guid: 6f62cf8c5710be7419d4ae998710f228, type: 3}
+  _currentTier: 1
+  _initialPurchaseCost: 0
+  _tiers:
+  - level: 1
+    cost: 0
+    effectStrength: 2
+  - level: 2
+    cost: 100
+    effectStrength: 3
+  - level: 3
+    cost: 300
+    effectStrength: 4
+  _defaultStartTier: 1

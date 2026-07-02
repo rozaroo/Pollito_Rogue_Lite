@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba6739ca0cf47eca8e5a4bddcff145e, type: 3}
+  m_Name: Jumpable
+  m_EditorClassIdentifier: 
+  _tileName: Jumpable Void
+  _requiresSpecialAbility: 1
+  _tileType: 2
+  _isMoveable: 0
+  _requiredAbility: 2
+  _jumpHeight: 1
