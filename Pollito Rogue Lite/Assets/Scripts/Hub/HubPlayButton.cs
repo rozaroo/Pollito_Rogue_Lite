@@ -4,7 +4,6 @@ using UnityEngine.Events;
 using Player;
 using DG.Tweening;
 using Audio;
-using UnityEngine.Audio;
 namespace Hub
 {
     public class HubPlayButton : MonoBehaviour
@@ -35,10 +34,6 @@ namespace Hub
         [SerializeField] private Color _pulseGrayColor1 = new Color(0.7f, 0.7f, 0.7f);
         [SerializeField] private Color _pulseGrayColor2 = new Color(0.6f, 0.6f, 0.6f);
         [SerializeField] private float _colorTransitionSpeed = 0.3f;
-
-        [Header("Audio")]
-        [SerializeField] private AudioClip _buttonPressedSound;
-        private AudioSource _audioSource;
 
         private PlayerController _playerController;
         private bool _playerInTriggerArea;
@@ -132,10 +127,7 @@ namespace Hub
                     _isHolding = true;
                     Debug.Log("[HubPlayButton] Player started holding action button");
                     //Añadir acá para que reproduzca el efecto de sonido
-                    _audioSource.clip = _buttonPressedSound;
-                    _audioSource.Play();
-                    // Play button press sound when starting to hold
-                    if (GameManager.Instance?.AudioManager != null) GameManager.Instance.AudioManager.PlayButtonPress();
+                    AkSoundEngine.PostEvent("PlayButton", gameObject);
                     TweenToGreenColor();
                 }
                 _currentHoldTime += Time.deltaTime;
@@ -148,7 +140,6 @@ namespace Hub
                 // Only reset if not completed
                 Debug.Log("[HubPlayButton] Player released button before completion");
                 ResetHoldProgress();
-                _audioSource.Stop();
                 // Reset border visual and color
                 ResetBorderVisual();
                 PulseGrayColor();

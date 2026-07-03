@@ -9,7 +9,6 @@ using Tiles;
 using UI;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 namespace Managers
@@ -30,19 +29,11 @@ namespace Managers
         private GameObject _currentPlayer;
         private readonly List<ChildOption> _generatedOptions = new();
         private bool _levelCompleted = false;
-
         
         public PlayerController Player => _playerController;
         public TilemapManager TilemapManager => _tilemapManager;
         public GameCanvasManager GameCanvasManager => _gameCanvasManager;
         public int CurrentLevelIndex => _currentLevelIndex;
-
-        [Header("Audio")]
-        [SerializeField] private AudioClip _UISound;
-        [SerializeField] private float _UIVolume = 2f;
-        [SerializeField] private AudioClip _DeathSound;
-        [SerializeField] private float _DeathVolume = 1f;
-        private AudioSource _audioSource;
         
         private void Update()
         {
@@ -236,7 +227,7 @@ namespace Managers
                 return;
             }
             //Reproducir aca efecto de UI
-            PlayUISound();
+            AkSoundEngine.PostEvent("Stats", gameObject);
             // Prepare the stat summary data
             List<StatSummaryData> summaryStats = new List<StatSummaryData>();
             
@@ -663,7 +654,7 @@ namespace Managers
                     if (_playerController.BreakForce >= customTile.BreakForceRequired)
                     {
                         //Sonido de caja rompiendose
-                        _tilemapManager.PlayBoxBrokeSound();
+                        AkSoundEngine.PostEvent("BreakBox", gameObject);
                         // Call the TilemapManager's BreakTile method to handle the animation
                         _tilemapManager.BreakTile(position);
                 
@@ -687,7 +678,7 @@ namespace Managers
                 return;
             }
             //Reproducir efecto de muerte
-            PlayDeathSound();
+            AkSoundEngine.PostEvent("Death", gameObject);
             // Disable player input immediately to prevent additional actions
             var playerController = _currentPlayer.GetComponent<PlayerController>();
             if (playerController != null)
@@ -965,18 +956,6 @@ namespace Managers
             _gameCanvasManager.UpdateCurrentPowerUI(primaryBuff);
             
             Debug.Log($"[LevelManager] Updated power UI with buff: {primaryBuff.effectName}");
-        }
-        private void PlayUISound()
-        {
-        if (_UISound == null) return;
-        _audioSource.spatialBlend = 0f; // 2D
-        _audioSource.PlayOneShot(_UISound, _UIVolume);
-        }
-        private void PlayDeathSound()
-        {
-        if (_DeathSound == null) return;
-        _audioSource.spatialBlend = 0f; // 2D
-        _audioSource.PlayOneShot(_DeathSound, _DeathVolume);
         }
     }
 }

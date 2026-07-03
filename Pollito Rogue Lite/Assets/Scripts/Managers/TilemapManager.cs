@@ -9,7 +9,6 @@ using Tilemaps;
 using Tiles;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.Audio;
 
 public class TilemapManager : MonoBehaviour
 {
@@ -221,7 +220,7 @@ public class TilemapManager : MonoBehaviour
         // Create a path for the jump with a subtle arc
         Vector3[] path = { startWorldPos, midPointWorldPos, targetWorldPos };
         //Añadir aca efecto de saltar
-        PlayJumpSound();
+        AkSoundEngine.PostEvent("Jump", gameObject);
         // Animate the player along the path
         playerController.transform.DOPath(path, 0.4f, PathType.CatmullRom)
             .SetEase(Ease.OutQuad)
@@ -401,7 +400,7 @@ public class TilemapManager : MonoBehaviour
         // Calculate world positions for animation
         Vector3 targetWorldPos = GridToWorldPosition(targetPosition);
         //Añadir acá efecto de sonido de empujar
-        PlayBoxPushingSound();
+        AkSoundEngine.PostEvent("PushBox", gameObject);
         // Animate the tile movement
         tileObj.transform.DOMove(targetWorldPos, 0.2f)
             .SetEase(Ease.OutQuad)
@@ -583,7 +582,7 @@ public class TilemapManager : MonoBehaviour
 
                 // Replace the tile with the active version
                 reference.Tilemap.SetTile(position, activeTile);
-                PlayGlassCrackSound(); //Aca reproducir sonido de vidrio roto
+                AkSoundEngine.PostEvent("BreakGlass", gameObject); //Aca reproducir sonido de vidrio roto
                 // Also play a subtle shake animation to draw attention
                 GameObject shakeTileObj = CreateShakingTileSprite(reference.Tilemap, position);
                 PlayFragileTileShakeAnimation(shakeTileObj, position);
@@ -672,7 +671,7 @@ public class TilemapManager : MonoBehaviour
         // Remove from marked tiles if present
         if (_markedFragileTiles.Contains(position)) _markedFragileTiles.Remove(position);
         bool tileFound = false;
-        PlayGlassBrokeSound();
+        AkSoundEngine.PostEvent("TotalBrokenGlass", gameObject);
         foreach (var reference in GetAllTilemapReferences())
         {
             if (reference?.Tilemap == null) continue;
@@ -799,57 +798,7 @@ public class TilemapManager : MonoBehaviour
             }
         }
     }
-
-    private void PlayGlassCrackSound()
-    {
-        if (_glassCrackSound == null)
-        {
-            Debug.LogWarning("[TilemapManager] No glass crack sound assigned.");
-            return;
-        }
-        _audioSource.spatialBlend = 0f; // 2D
-        _audioSource.PlayOneShot(_glassCrackSound, _glassCrackVolume);
-    }
-    private void PlayGlassBrokeSound()
-    {
-        if (_glassBreakingSound == null)
-        {
-            Debug.LogWarning("[TilemapManager] No glass break sound assigned.");
-            return;
-        }
-        _audioSource.spatialBlend = 0f; // 2D
-        _audioSource.PlayOneShot(_glassBreakingSound, _glassBreakingVolume);
-    }
-    private void PlayBoxPushingSound()
-    {
-        if (_BoxPushSound == null)
-        {
-            Debug.LogWarning("[TilemapManager] No box push sound assigned.");
-            return;
-        }
-        _audioSource.spatialBlend = 0f; // 2D
-        _audioSource.PlayOneShot(_BoxPushSound, _boxPushVolume);
-    }
-    public void PlayBoxBrokeSound()
-    {
-        if (_BoxBrokeSound == null)
-        {
-            Debug.LogWarning("[TilemapManager] No box broke sound assigned.");
-            return;
-        }
-        _audioSource.spatialBlend = 0f; // 2D
-        _audioSource.PlayOneShot(_BoxBrokeSound, _boxBrokeVolume);
-    }
-    private void PlayJumpSound()
-    {
-        if (_JumpSound == null)
-        {
-            Debug.LogWarning("[TilemapManager] No jump sound assigned.");
-            return;
-        }
-        _audioSource.spatialBlend = 0f; // 2D
-        _audioSource.PlayOneShot(_JumpSound, _jumpVolume);
-    }
+    
     public Vector3 CellToWorld(Vector3Int cellPos)
     {
         return _floorTilemap.Tilemap.CellToWorld(cellPos);

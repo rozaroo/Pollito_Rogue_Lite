@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Audio;
 using UI;
 
 namespace Managers
@@ -20,11 +19,6 @@ namespace Managers
         
         // Referencia a la UI de moneda activa
         private CurrencyUI _cachedCurrencyUI;
-
-        [Header("Audio")]
-        [SerializeField] private AudioClip _CoinSound;
-        [SerializeField] private float _CoinVolume = 0.8f;
-        private AudioSource _audioSource;
 
         // Propiedades publicas para acceder a los multiplicadores
         /// <summary>
@@ -128,8 +122,8 @@ namespace Managers
         public void AddCurrency(int amount)
         {
             if (amount <= 0) return;
-            //Añadir efecto de moneda
-            PlayCoinSound();
+            //Efecto de moneda
+            AkSoundEngine.PostEvent("Coin", gameObject);
             _totalCurrency += amount;
             Debug.Log($"[CurrencyManager] Added {amount} currency. New total: {_totalCurrency}");
 
@@ -186,12 +180,6 @@ namespace Managers
         {
             // Asegura que se guarde la moneda al cerrar la aplicacion
             SaveCurrency();
-        }
-        private void PlayCoinSound()
-        {
-        if (_CoinSound == null) return;
-        _audioSource.spatialBlend = 0f; // 2D
-        _audioSource.PlayOneShot(_CoinSound, _CoinVolume);
         }
     }
 }

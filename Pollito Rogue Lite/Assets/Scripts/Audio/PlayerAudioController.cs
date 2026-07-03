@@ -125,7 +125,7 @@ namespace Audio
         public void PlayFootstep()
         {
             if (!CanPlayFootstep()) return;
-            PlayAudioOneShot(footstepSounds);
+            AkSoundEngine.PostEvent("Walk", gameObject);
             lastFootstepTime = Time.time;
         }
         

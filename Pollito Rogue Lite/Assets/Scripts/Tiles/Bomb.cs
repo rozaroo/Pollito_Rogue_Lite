@@ -1,13 +1,9 @@
 using UnityEngine;
-using UnityEngine.Audio;
 using System.Collections;
 public class Bomb : MonoBehaviour
 {
     [SerializeField] private float tiempoExplosion = 0.5f; // Segundos antes de explotar
     [SerializeField] private GameObject explosionPrefab; // Prefab de la explosión
-    [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioClip explosionSound;
-    [SerializeField] private AudioClip mechaSound;
     [SerializeField] private float _bombVolume = 1.0f;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private SpriteRenderer radiusRenderer;
@@ -58,21 +54,14 @@ public class Bomb : MonoBehaviour
         // Instanciamos la explosión
         Vector3 spawnPos = transform.position + new Vector3(0f, -0.5f, 0f);
         Instantiate(explosionPrefab, spawnPos, Quaternion.identity);
-        PlayBombSound();
+        AkSoundEngine.PostEvent("Explosion", gameObject);
         // Destruimos la bomba
         Destroy(gameObject);
     }
-    private void PlayBombSound()
-    {
-        AudioSource.PlayClipAtPoint(explosionSound, transform.position, 1f);
-    }
-    private void PlayMechaSound()
-    {
-        musicSource.PlayOneShot(mechaSound, 1.0f);
-    }
+    
     private IEnumerator BlinkRoutine() 
     {
-        PlayMechaSound();
+        AkSoundEngine.PostEvent("Bomb", gameObject);
         float elapsed = 0;
         float blinkInterval = 0.5f; //Cada medio segundo
         while (elapsed < tiempoExplosion) 

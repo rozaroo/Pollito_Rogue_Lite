@@ -4,7 +4,6 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using Player;
 using DG.Tweening;
-using Audio;
 
 namespace Hub
 {
@@ -143,10 +142,7 @@ namespace Hub
                     _isHolding = true;
                     Debug.Log("[HubExitButton] Player started holding action button");
                     //Añadir acá para que reproduzca el efecto de sonido
-                    _audioSource.clip = _buttonPressedSound;
-                    _audioSource.Play();
-                    // Play button press sound when starting to hold
-                    if (GameManager.Instance?.AudioManager != null) GameManager.Instance.AudioManager.PlayButtonPress();
+                    AkSoundEngine.PostEvent("PlayButton", gameObject);
                     TweenToRedColor();
                 }
                 _currentHoldTime += Time.deltaTime;
