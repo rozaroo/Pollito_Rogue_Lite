@@ -4,7 +4,6 @@ public class Bomb : MonoBehaviour
 {
     [SerializeField] private float tiempoExplosion = 0.5f; // Segundos antes de explotar
     [SerializeField] private GameObject explosionPrefab; // Prefab de la explosión
-    [SerializeField] private float _bombVolume = 1.0f;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private SpriteRenderer radiusRenderer;
     private float radiusAlpha = 0.3f;

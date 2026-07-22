@@ -1,4 +1,3 @@
-using Audio; // Add Audio namespace
 using DG.Tweening;
 using Enums;
 using Managers;
@@ -118,8 +117,6 @@ public class PlayerController : MonoBehaviour
         _movementCounter = GetComponent<MovementCounter>();
         _spriteManager = GetComponent<PlayerSpriteManager>();
         _playerAnimator = GetComponent<PlayerAnimator>();
-        // Get or create PlayerAudioController
-        if (_playerAudioController == null) _playerAudioController = GetComponent<PlayerAudioController>();
         if (_playerAnimator == null) Debug.LogWarning("PlayerAnimator component not found on player. Animations will be handled by legacy code.");
         // Suscripcion a eventos de movimiento
         OnMovementStarted += HandleMovementStarted;
@@ -316,12 +313,7 @@ public class PlayerController : MonoBehaviour
                 isDashing = true;
                 Debug.Log($"[PlayerController] Using dash strength of {_dashAbility.CurrentStrengthLevel}, rounded to {moveDistance}");
             }
-            else
-            {
-                // Si no esta libre se mueve solo 1 casilla
-                Debug.Log("[PlayerController] Obstacles detected in dash path. Limiting to regular move.");
-                moveDistance = 1;
-            }
+            else moveDistance = 1; 
         }
 
         // Ajustar la direccion visual del jugador (mirando a izquierda/derecha)
@@ -500,7 +492,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void HandleMovementStarted()
     {
-        if (_playerAudioController != null) _playerAudioController.PlayFootstep();
+        AkSoundEngine.PostEvent("Walk", gameObject);
     }
     #endregion
 

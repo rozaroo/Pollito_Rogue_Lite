@@ -32,19 +32,7 @@ public class TilemapManager : MonoBehaviour
 
     [Header("Debug Settings")]
     [SerializeField] private bool _enableTileDebug = true;
-    [Header("Audio")]
-    [SerializeField] private AudioClip _glassCrackSound;
-    [SerializeField] private AudioClip _glassBreakingSound;
-    [SerializeField] private AudioClip _BoxBrokeSound;
-    [SerializeField] private AudioClip _BoxPushSound;
-    [SerializeField] private AudioClip _JumpSound;
-    [SerializeField] private float _glassCrackVolume = 0.5f;
-    [SerializeField] private float _glassBreakingVolume = 0.5f;
-    [SerializeField] private float _boxPushVolume = 0.5f;
-    [SerializeField] private float _boxBrokeVolume = 0.5f;
-    [SerializeField] private float _jumpVolume = 0.5f;
     
-    private AudioSource _audioSource;
 
     private Coroutine _highlightResetCoroutine;
     private bool _isDebugColorsActive;
