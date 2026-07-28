@@ -93,7 +93,6 @@ namespace Managers
 
         private void Awake()
         {
-            if (_audioSource == null) _audioSource = GetComponent<AudioSource>();
             if (_entryPoint == null || _exitPoint == null) Debug.LogError("[LevelManager] Missing entry or exit point reference!");
             // Auto-find missing references for builds
             if (_puzzleController == null)

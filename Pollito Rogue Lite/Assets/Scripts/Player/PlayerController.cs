@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _globalLights; //Luces globales (cuando no hay ceguera)
     [SerializeField] private GameObject _blindnessLights; //Luces especiales para debuff de ceguera
     [SerializeField] private GameObject _bomb; //Prefab de la bomba
-    [SerializeField] private PlayerAudioController _playerAudioController; // Maneja sonidos del player
     //HABILIDADES
     [Header("Player Abilities")]
     [SerializeField] public int BreakForce = 1; //Fuerza para romper bloques

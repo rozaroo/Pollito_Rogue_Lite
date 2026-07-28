@@ -50,9 +50,6 @@ namespace Hub
             GetReferences();
             if (_borderTransform != null) _originalBorderPosition = _borderTransform.localPosition;
             if (_borderSprite != null) _borderSprite.color = _defaultColor;
-            // Asegurar que el AudioSource exista
-            if (_audioSource == null) _audioSource = GetComponent<AudioSource>();
-            Debug.Log("[HubPlayButton] Initialized");
         }
 
         private void GetReferences()

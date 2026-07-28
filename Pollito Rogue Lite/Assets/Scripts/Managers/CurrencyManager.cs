@@ -33,7 +33,6 @@ namespace Managers
         
         private void Awake()
         {
-            if (_audioSource == null) _audioSource = GetComponent<AudioSource>();
             // Carga el valor de moneda guardado al iniciar
             LoadCurrency();
         }

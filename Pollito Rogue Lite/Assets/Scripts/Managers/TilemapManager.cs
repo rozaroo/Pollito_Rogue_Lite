@@ -50,8 +50,6 @@ public class TilemapManager : MonoBehaviour
     private void Awake()
     {
         _currentPuzzle = _puzzleController.CurrentPuzzle;
-        // Puedes usar un AudioSource global o crear uno si no existe
-        if (_audioSource == null) _audioSource = GetComponent<AudioSource>();
     }
     
     private void Start()
