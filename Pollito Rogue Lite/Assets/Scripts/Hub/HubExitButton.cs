@@ -52,7 +52,7 @@ namespace Hub
         private Sequence _colorSequence;
         private Vector3 _originalBorderPosition;
         private bool _isExiting = false;
-
+        private uint _playButtonPlayingId = 0;
         public float HoldProgress => _currentHoldTime / _holdDuration;
 
         private void Start()
@@ -67,43 +67,27 @@ namespace Hub
 
         private void GetReferences()
         {
-            if (GameManager.Instance != null && GameManager.Instance.HubManager != null)
-            {
-                _playerController = GameManager.Instance.HubManager.PlayerController;
-                Debug.Log(_playerController != null
-                    ? $"[HubExitButton] PlayerController found from HubManager: {_playerController.name}"
-                    : "[HubExitButton] PlayerController not found in HubManager");
-            }
-            else
-            {
-                Debug.LogWarning("[HubExitButton] GameManager or HubManager not available");
-            }
-
+            if (GameManager.Instance != null && GameManager.Instance.HubManager != null) _playerController = GameManager.Instance.HubManager.PlayerController;
             // Find border transform if not assigned
             if (_borderTransform == null)
             {
                 _borderTransform = transform.Find("Border");
-                if (_borderTransform == null)
-                    _borderTransform = GetComponentInChildren<Transform>();
-
-                Debug.Log(_borderTransform != null
-                    ? $"[HubExitButton] Border transform found: {_borderTransform.name}"
-                    : "[HubExitButton] No border transform found in children");
+                if (_borderTransform == null) _borderTransform = GetComponentInChildren<Transform>();
             }
 
             // Find sprite renderer if not assigned
             if (_borderSprite == null && _borderTransform != null)
             {
                 _borderSprite = _borderTransform.GetComponent<SpriteRenderer>();
-                if (_borderSprite == null)
-                    _borderSprite = GetComponentInChildren<SpriteRenderer>();
-
-                Debug.Log(_borderSprite != null
-                    ? "[HubExitButton] Border sprite renderer found"
-                    : "[HubExitButton] No sprite renderer found");
+                if (_borderSprite == null) _borderSprite = GetComponentInChildren<SpriteRenderer>();
             }
         }
-
+        private void StopPlayButtonSound()
+        {
+            if (_playButtonPlayingId == 0) return;
+            AkSoundEngine.StopPlayingID(_playButtonPlayingId);
+            _playButtonPlayingId = 0;
+        }
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (_playerController == null)
@@ -124,6 +108,7 @@ namespace Hub
         {
             if (_playerController == null || other.gameObject != _playerController.gameObject) return;
             _playerInTriggerArea = false;
+            StopPlayButtonSound();
             ResetHoldProgress();
             Debug.Log("[HubExitButton] Player exited trigger area");
             FlashBlueColor();
@@ -152,8 +137,7 @@ namespace Hub
             }
             else if (_isHolding && _currentHoldTime < _holdDuration)
             {
-                // Only reset if not completed
-                Debug.Log("[HubExitButton] Player released button before completion");
+                StopPlayButtonSound(); // Detiene el sonido al soltar E
                 ResetHoldProgress();
                 _audioSource.Stop();
                 // Reset border visual and color
@@ -172,16 +156,12 @@ namespace Hub
         {
             if (_isExiting) return; // Prevent multiple invocations
             _isExiting = true;
-            
-            Debug.Log("[HubExitButton] Hold completed - Invoking exit game event");
-
+            StopPlayButtonSound(); // Detiene el sonido al soltar E
             // Play menu close sound when exiting (more appropriate than error sound)
-            if (GameManager.Instance?.AudioManager != null)
-                GameManager.Instance.AudioManager.PlayMenuClose();
+            if (GameManager.Instance?.AudioManager != null) GameManager.Instance.AudioManager.PlayMenuClose();
 
             // Play exit feedback animation
-            if (_borderTransform != null)
-                ShakeBorder();
+            if (_borderTransform != null) ShakeBorder();
 
             _onHoldComplete?.Invoke();
 

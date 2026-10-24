@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2872982132371265712}
   - component: {fileID: 2941174270629579705}
-  - component: {fileID: -8231236953365287008}
   - component: {fileID: -4141824081835467725}
   m_Layer: 0
   m_Name: Bomb
@@ -50,111 +49,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiempoExplosion: 3
   explosionPrefab: {fileID: 8694169203707052255, guid: e200c511352a82b4a8fa34705e863b4d, type: 3}
-  musicSource: {fileID: -8231236953365287008}
-  explosionSound: {fileID: 8300000, guid: d22f76df354c7cd428bb8ed2d185d299, type: 3}
-  mechaSound: {fileID: 8300000, guid: 609b3f1b67caa224fae39a902ca14b94, type: 3}
-  _bombVolume: 0.5
   spriteRenderer: {fileID: 844127254437055622}
   radiusRenderer: {fileID: 3501957647544739622}
   blinkColor: {r: 1, g: 0, b: 0, a: 1}
   radiusVisualizer: {fileID: 7747706359027578037}
---- !u!82 &-8231236953365287008
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6070108205483353082}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d22f76df354c7cd428bb8ed2d185d299, type: 3}
-  m_Resource: {fileID: 8300000, guid: d22f76df354c7cd428bb8ed2d185d299, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!61 &-4141824081835467725
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -252,6 +150,7 @@ SpriteRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

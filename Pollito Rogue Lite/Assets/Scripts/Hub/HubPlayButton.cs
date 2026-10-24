@@ -42,6 +42,7 @@ namespace Hub
         private Sequence _feedbackSequence;
         private Sequence _colorSequence;
         private Vector3 _originalBorderPosition;
+        private uint _playButtonPlayingId = 0;
 
         public float HoldProgress => _currentHoldTime / _holdDuration;
 
@@ -54,14 +55,7 @@ namespace Hub
 
         private void GetReferences()
         {
-            if (GameManager.Instance != null && GameManager.Instance.HubManager != null)
-            {
-                _playerController = GameManager.Instance.HubManager.PlayerController;
-                Debug.Log(_playerController != null
-                    ? $"[HubPlayButton] PlayerController found from HubManager: {_playerController.name}"
-                    : "[HubPlayButton] PlayerController not found in HubManager");
-            }
-            else Debug.LogWarning("[HubPlayButton] GameManager or HubManager not available");
+            if (GameManager.Instance != null && GameManager.Instance.HubManager != null) _playerController = GameManager.Instance.HubManager.PlayerController;
             // Find border transform if not assigned
             if (_borderTransform == null)
             {
@@ -89,14 +83,9 @@ namespace Hub
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (_playerController == null)
-            {
-                _playerController = other.GetComponent<PlayerController>();
-                if (_playerController != null) Debug.Log($"[HubPlayButton] PlayerController found from trigger: {_playerController.name}");
-            }
+            if (_playerController == null) _playerController = other.GetComponent<PlayerController>();
             if (_playerController == null || other.gameObject != _playerController.gameObject) return;
             _playerInTriggerArea = true;
-            Debug.Log("[HubPlayButton] Player entered trigger area");
             // Play button hover sound
             if (GameManager.Instance?.AudioManager != null) GameManager.Instance.AudioManager.PlayButtonHover();
             PulseGrayColor();
@@ -106,9 +95,9 @@ namespace Hub
         private void OnTriggerExit2D(Collider2D other)
         {
             if (_playerController == null || other.gameObject != _playerController.gameObject) return;
+            StopPlayButtonSound();
             _playerInTriggerArea = false;
             ResetHoldProgress();
-            Debug.Log("[HubPlayButton] Player exited trigger area");
             FlashRedColor();
             if (_borderTransform != null) ShakeOnExit();
         }
@@ -122,9 +111,8 @@ namespace Hub
                 if (!_isHolding)
                 {
                     _isHolding = true;
-                    Debug.Log("[HubPlayButton] Player started holding action button");
                     //Añadir acá para que reproduzca el efecto de sonido
-                    AkSoundEngine.PostEvent("PlayButton", gameObject);
+                    _playButtonPlayingId = AkSoundEngine.PostEvent("PlayButton", gameObject);
                     TweenToGreenColor();
                 }
                 _currentHoldTime += Time.deltaTime;
@@ -134,15 +122,19 @@ namespace Hub
             }
             else if (_isHolding && _currentHoldTime < _holdDuration)
             {
-                // Only reset if not completed
-                Debug.Log("[HubPlayButton] Player released button before completion");
+                StopPlayButtonSound(); // Detiene el sonido al soltar E
                 ResetHoldProgress();
                 // Reset border visual and color
                 ResetBorderVisual();
                 PulseGrayColor();
             }
         }
-
+        private void StopPlayButtonSound()
+        {
+            if (_playButtonPlayingId == 0) return;
+            AkSoundEngine.StopPlayingID(_playButtonPlayingId);
+            _playButtonPlayingId = 0;
+        }
         private void ResetHoldProgress()
         {
             _isHolding = false;
@@ -151,35 +143,20 @@ namespace Hub
 
         private void InvokeStartPlay()
         {
-            Debug.Log("[HubPlayButton] Hold completed - Invoking play event");
-
+            if (!_isHolding) return;
+            _isHolding = false;
+            StopPlayButtonSound();
             // Play success sound when action completes
-            if (GameManager.Instance?.AudioManager != null)
-                GameManager.Instance.AudioManager.PlaySuccessSound();
-
+            if (GameManager.Instance?.AudioManager != null) GameManager.Instance.AudioManager.PlaySuccessSound();
             // Play success feedback animation
-            if (_borderTransform != null)
-                ShakeBorder();
-
+            if (_borderTransform != null) ShakeBorder();
             _onHoldComplete?.Invoke();
-
             // Don't reset hold progress or visual state - stay in completed state
-            _isHolding = false; // Just reset the holding flag but keep visuals
             _currentHoldTime = _holdDuration; // Keep at max
-
             // Kill any ongoing color tweens to freeze at current color
             _colorSequence?.Kill();
-    
             // Call GameManager to load the first level
-            if (GameManager.Instance != null)
-            {
-                Debug.Log("[HubPlayButton] Requesting GameManager to initialize with the first level");
-                GameManager.Instance.InitializeWithFirstLevel();
-            }
-            else
-            {
-                Debug.LogError("[HubPlayButton] GameManager instance not found, cannot load level");
-            }
+            if (GameManager.Instance != null) GameManager.Instance.InitializeWithFirstLevel();
         }
 
         private void UpdateBorderVisual()
